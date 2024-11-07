@@ -1,8 +1,36 @@
 <section class="orders-show">
 
   <header class="page-header">
-    <h1>Order #<%= @order.id %></h1>
+    <h1>Order <%= @order.id %></h1>
   </header>
+
+  <h2>Order Details</h2>
+<p><strong>Email:</strong> <%= @order.email %></p>
+
+<h3>Items</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order.line_items.each do |line_item| %>
+      <tr>
+        <%= render partial: 'line_item', locals: { line_item: line_item } %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Order Summary</h3>
+<% total_amount = @order.line_items.sum(&:total_price) %>
+<p><strong>Final Amount:</strong> <%= humanized_money_with_symbol(total_amount) %></p>
+
 
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
