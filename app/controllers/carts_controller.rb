@@ -1,6 +1,11 @@
 class CartsController < ApplicationController
 
   def show
+    if cart.length.zero?
+      flash[:notice] = "Your cart is empty. <a href='/products'>Continue shopping</a>".html_safe
+    else
+      flash[:notice] = nil
+    end
   end
 
   def add_item
