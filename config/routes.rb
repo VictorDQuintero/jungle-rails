@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'sessions/new'
+  get 'sessions/create'
+  get 'sessions/destroy'
   get 'users/new'
   get 'users/create'
   get 'about', to: 'about#index'
@@ -14,6 +17,8 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:new, :create]
+  
+  resources :sessions, only: [:new, :create, :destroy]
 
   resources :orders, only: [:create, :show]
 
